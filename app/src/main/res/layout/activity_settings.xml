@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ContentDescription, UseCompoundDrawables"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="25dp"
+    tools:context=".activities.SettingsActivity">
+
+    <TextView
+        android:id="@+id/textViewLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textDirection="locale"
+        android:textSize="20sp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:text="@string/language" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutArabic"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textViewLanguage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="15dp"
+        android:padding="5dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:onClick="chooseArabicAction">
+
+        <ImageView
+            android:id="@+id/imageViewArabic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            app:srcCompat="@drawable/flag_om" />
+
+        <TextView
+            android:id="@+id/textViewArabic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textDirection="locale"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/arabic"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutEnglish"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutArabic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:onClick="chooseEnglishAction">
+
+        <ImageView
+            android:id="@+id/imageViewEnglish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            app:srcCompat="@drawable/flag_uk" />
+
+        <TextView
+            android:id="@+id/textViewEnglish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textDirection="locale"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/english" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

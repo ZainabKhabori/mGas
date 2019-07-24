@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navItemProfile"
+            android:icon="@drawable/ic_profile"
+            android:title="@string/menu_profile" />
+
+        <item
+            android:id="@+id/navItemOrders"
+            android:icon="@drawable/ic_orders"
+            android:title="@string/menu_orders" />
+
+        <item
+            android:id="@+id/navItemLotteries"
+            android:icon="@drawable/ic_lottery"
+            android:title="@string/menu_lotteries" />
+
+        <item
+            android:id="@+id/navItemSettings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/menu_settings" />
+
+        <item
+            android:id="@+id/navItemTermsAndConditions"
+            android:icon="@drawable/ic_legal"
+            android:title="@string/terms_amp_conditions" />
+
+        <item android:title="@string/services"
+            android:id="@+id/navItemServices">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/navItemIndustrialGasRefill"
+                        android:icon="@drawable/ic_industrial_gas"
+                        android:title="@string/menu_industrial_gas_refill" />
+
+                    <item
+                        android:id="@+id/navItemCompositeCylinder"
+                        android:icon="@drawable/ic_gas_cylinder"
+                        android:title="@string/menu_composite_cylinder" />
+
+                    <item
+                        android:id="@+id/navItemGasAccessories"
+                        android:icon="@drawable/ic_basket"
+                        android:title="@string/gas_accessories_items" />
+                </group>
+            </menu>
+        </item>
+    </group>
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/navItemLogout"
+                android:title="@string/logout"
+                android:icon="@drawable/ic_logout" />
+        </menu>
+    </item>
+</menu>

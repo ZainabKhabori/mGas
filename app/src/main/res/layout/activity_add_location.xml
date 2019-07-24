@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="Autofill, LabelFor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/textColorPrimary"
+            android:text="@string/add_a_location"
+            android:textAlignment="center"
+            android:textSize="28sp" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutSelectLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:textAlignment="center"
+            android:onClick="selectLocationAction">
+
+            <ImageView
+                android:id="@+id/imageViewSelectLocation"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/map_search_icon"
+                android:tint="@color/textColorPrimary"
+                app:srcCompat="@drawable/ic_map_search" />
+
+            <TextView
+                android:id="@+id/textViewSelectLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:textColor="@color/textColorPrimary"
+                android:text="@string/select_location"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayoutDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/textViewName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/editTextName"
+                android:layout_alignBottom="@id/editTextName"
+                android:layout_marginEnd="10dp"
+                android:text="@string/location_s_name"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/textColorPrimary"/>
+
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/textViewName"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textSize="16sp"
+                android:background="@drawable/round_edged_background"
+                android:backgroundTint="@color/textColorPrimary"
+                android:padding="10dp"
+                android:layout_marginBottom="5dp" />
+
+            <TextView
+                android:id="@+id/textViewCountry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewName"
+                android:layout_alignStart="@+id/textViewName"
+                android:layout_alignEnd="@+id/textViewName"
+                android:layout_alignTop="@id/editTextCountry"
+                android:layout_alignBottom="@id/editTextCountry"
+                android:text="@string/country"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/textColorPrimary" />
+
+            <EditText
+                android:id="@+id/editTextCountry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/textViewCountry"
+                android:layout_below="@id/editTextName"
+                android:layout_alignStart="@id/editTextName"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textSize="16sp"
+                android:background="@drawable/round_edged_background"
+                android:backgroundTint="@color/textColorPrimary"
+                android:padding="10dp"
+                android:layout_marginBottom="5dp" />
+
+            <TextView
+                android:id="@+id/textViewGovernorate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewCountry"
+                android:layout_alignStart="@id/textViewCountry"
+                android:layout_alignEnd="@id/textViewCountry"
+                android:layout_alignTop="@id/editTextGovernorate"
+                android:layout_alignBottom="@id/editTextGovernorate"
+                android:text="@string/governorate"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/textColorPrimary" />
+
+            <EditText
+                android:id="@+id/editTextGovernorate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editTextCountry"
+                android:layout_toEndOf="@id/textViewGovernorate"
+                android:layout_alignStart="@id/editTextCountry"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textSize="16sp"
+                android:background="@drawable/round_edged_background"
+                android:backgroundTint="@color/textColorPrimary"
+                android:padding="10dp"
+                android:layout_marginBottom="5dp" />
+
+            <TextView
+                android:id="@+id/textViewProvince"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewGovernorate"
+                android:layout_alignStart="@id/textViewGovernorate"
+                android:layout_alignEnd="@id/textViewGovernorate"
+                android:layout_alignTop="@id/editTextProvince"
+                android:layout_alignBottom="@id/editTextProvince"
+                android:text="@string/province"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/textColorPrimary" />
+
+            <EditText
+                android:id="@+id/editTextProvince"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editTextGovernorate"
+                android:layout_toEndOf="@id/textViewProvince"
+                android:layout_alignStart="@id/editTextGovernorate"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textSize="16sp"
+                android:background="@drawable/round_edged_background"
+                android:backgroundTint="@color/textColorPrimary"
+                android:padding="10dp"
+                android:layout_marginBottom="5dp" />
+
+            <TextView
+                android:id="@+id/textViewCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewProvince"
+                android:layout_alignStart="@id/textViewProvince"
+                android:layout_alignEnd="@id/textViewProvince"
+                android:layout_alignTop="@id/editTextCity"
+                android:layout_alignBottom="@id/editTextCity"
+                android:text="@string/city"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/textColorPrimary" />
+
+            <EditText
+                android:id="@+id/editTextCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editTextProvince"
+                android:layout_toEndOf="@id/textViewCity"
+                android:layout_alignStart="@id/editTextProvince"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textSize="16sp"
+                android:background="@drawable/round_edged_background"
+                android:backgroundTint="@color/textColorPrimary"
+                android:padding="10dp"
+                android:layout_marginBottom="5dp" />
+
+            <TextView
+                android:id="@+id/textViewStreet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewCity"
+                android:layout_alignStart="@id/textViewCity"
+                android:layout_alignEnd="@id/textViewCity"
+                android:layout_alignTop="@id/editTextStreet"
+                android:layout_alignBottom="@id/editTextStreet"
+                android:text="@string/street"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/textColorPrimary" />
+
+            <EditText
+                android:id="@+id/editTextStreet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editTextCity"
+                android:layout_toEndOf="@id/textViewStreet"
+                android:layout_alignStart="@id/editTextCity"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textSize="16sp"
+                android:background="@drawable/round_edged_background"
+                android:backgroundTint="@color/textColorPrimary"
+                android:padding="10dp"
+                android:layout_marginBottom="5dp" />
+
+            <TextView
+                android:id="@+id/textViewWay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewStreet"
+                android:layout_alignStart="@id/textViewStreet"
+                android:layout_alignEnd="@id/textViewStreet"
+                android:layout_alignTop="@id/editTextWay"
+                android:layout_alignBottom="@id/editTextWay"
+                android:text="@string/way"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/textColorPrimary" />
+
+            <EditText
+                android:id="@+id/editTextWay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editTextStreet"
+                android:layout_toEndOf="@id/textViewWay"
+                android:layout_alignStart="@id/editTextStreet"
+                android:ems="10"
+                android:inputType="number"
+                android:textSize="16sp"
+                android:background="@drawable/round_edged_background"
+                android:backgroundTint="@color/textColorPrimary"
+                android:padding="10dp"
+                android:layout_marginBottom="5dp" />
+
+            <TextView
+                android:id="@+id/textViewBuilding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewWay"
+                android:layout_alignStart="@id/textViewWay"
+                android:layout_alignEnd="@id/textViewWay"
+                android:layout_alignTop="@id/editTextBuilding"
+                android:layout_alignBottom="@id/editTextBuilding"
+                android:text="@string/building"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textColor="@color/textColorPrimary" />
+
+            <EditText
+                android:id="@+id/editTextBuilding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editTextWay"
+                android:layout_toEndOf="@id/textViewBuilding"
+                android:layout_alignStart="@id/editTextWay"
+                android:ems="10"
+                android:inputType="number"
+                android:textSize="16sp"
+                android:background="@drawable/round_edged_background"
+                android:backgroundTint="@color/textColorPrimary"
+                android:padding="10dp" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/buttonConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/states_button_accent"
+            android:enabled="false"
+            android:padding="15dp"
+            android:text="@string/confirm"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:onClick="confirmAction"/>
+    </LinearLayout>
+</ScrollView>

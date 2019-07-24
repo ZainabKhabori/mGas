@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:right="10dp" android:left="10dp">
+        <selector>
+            <item android:state_checked="true"
+                android:drawable="@drawable/ripple_accent" />
+            <item android:drawable="@drawable/ripple_transparent_accent" />
+        </selector>
+    </item>
+</layer-list>

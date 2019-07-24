@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayoutLotteries"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp"
+    tools:context=".activities.LotteriesActivity">
+
+    <TextView
+        android:id="@+id/textViewNoLotteries"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:text="@string/no_currently_active_lotteries" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewLotteries"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ContentDescription"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_edge_dialog_background"
+    android:padding="10dp"
+    android:layout_marginTop="5dp">
+
+    <TextView
+        android:id="@+id/textViewType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@id/textViewQuantity"
+        android:layout_marginStart="10dp"
+        android:textDirection="locale"
+        android:textSize="18sp"
+        android:textColor="@color/textColorPrimary" />
+
+    <TextView
+        android:id="@+id/textViewSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewType"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@id/textViewQuantity"
+        android:layout_marginStart="10dp"
+        android:textDirection="locale"
+        android:textSize="18sp"
+        android:textColor="@color/textColorPrimary" />
+
+    <TextView
+        android:id="@+id/textViewCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewSize"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@id/textViewQuantity"
+        android:layout_marginStart="10dp"
+        android:textDirection="locale"
+        android:textSize="18sp"
+        android:textColor="@color/textColorPrimary" />
+
+    <TextView
+        android:id="@+id/textViewQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/imageViewDelete"
+        android:layout_centerVertical="true"
+        android:textDirection="locale"
+        android:textSize="30sp"
+        android:textColor="@color/textColorPrimary"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageViewDelete"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="15dp"
+        android:tint="@color/colorAccent"
+        app:srcCompat="@drawable/ic_delete" />
+</RelativeLayout>

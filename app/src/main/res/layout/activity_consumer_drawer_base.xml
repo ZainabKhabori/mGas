@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ContentDescription"
+    android:id="@+id/drawerLayoutDrawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start"
+    tools:context=".activities.ConsumerDrawerBaseActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/frameLayoutActivityContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageButton
+            android:id="@+id/imageButtonToggle"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="-35dp"
+            android:layout_centerVertical="true"
+            android:background="@android:color/transparent"
+            android:onClick="actionDrawerToggle"
+            app:srcCompat="@drawable/half_circle_arrow_right" />
+    </RelativeLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigationViewDrawer"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        android:background="@color/colorPrimary"
+        app:itemTextColor="@color/navigation_items"
+        app:itemIconTint="@color/navigation_items"
+        app:itemBackground="@drawable/states_nav_item"
+        app:headerLayout="@layout/navigation_drawer_header"
+        app:menu="@menu/menu_navigation_drawer" />
+</android.support.v4.widget.DrawerLayout>

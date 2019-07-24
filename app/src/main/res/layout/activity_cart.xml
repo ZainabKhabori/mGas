@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ButtonStyle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    tools:context=".activities.CartActivity">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:textSize="32sp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:text="@string/your_cart" />
+
+    <CheckBox
+        android:id="@+id/checkBoxClimbStairs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewTitle"
+        android:layout_marginBottom="10dp"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:buttonTint="@color/colorAccent"
+        android:enabled="false"
+        android:text="@string/climb_stairs" />
+
+    <TextView
+        android:id="@+id/textViewClimbStairsCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewTitle"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@id/checkBoxClimbStairs"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/textViewDeliveryOption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkBoxClimbStairs"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:drawableStart="@drawable/ic_delivery_options_small"
+        android:drawablePadding="10dp"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/textViewDeliveryOptionCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewClimbStairsCost"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@id/textViewDeliveryOption"
+        android:layout_alignBottom="@id/textViewDeliveryOption"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewOrderItems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewDeliveryOption"
+        android:layout_above="@id/textViewTotalCost"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/textViewTotalCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/linearLayoutButtons"
+        android:layout_marginBottom="15dp"
+        android:textSize="20sp"
+        android:textColor="@color/colorPrimary" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonAddMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/states_button_accent"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/add_more"
+            android:onClick="addMoreAction"/>
+
+        <Button
+            android:id="@+id/buttonCheckout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/states_button_accent"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/checkout"
+            android:onClick="checkoutAction"/>
+    </LinearLayout>
+
+</RelativeLayout>

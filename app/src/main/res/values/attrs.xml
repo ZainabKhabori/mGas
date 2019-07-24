@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PinEntryEditText">
+        <attr name="autoSpace" format="boolean" />
+        <attr name="spaceSize" format="float" />
+        <attr name="textElevation" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="CircularImageView">
+        <attr name="borderColor" format="color" />
+        <attr name="borderThickness" format="dimension" />
+        <attr name="highlightEnabled" format="boolean" />
+        <attr name="highlightColor" format="color" />
+    </declare-styleable>
+</resources>

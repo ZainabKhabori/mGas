@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="Autofill"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="@string/search_for"
+        android:textSize="30sp"
+        android:textColor="@color/colorPrimary" />
+
+    <EditText
+        android:id="@+id/editTextCountry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/country"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:text="Oman" />
+
+    <EditText
+        android:id="@+id/editTextGovernorate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/governorate"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:text="Muscat" />
+
+    <EditText
+        android:id="@+id/editTextProvince"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/province"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:text="Muttrah" />
+
+    <EditText
+        android:id="@+id/editTextCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/city"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:text="Ruwi" />
+
+    <EditText
+        android:id="@+id/editTextStreet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/street"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:text="Bait Al Falj St" />
+
+    <EditText
+        android:id="@+id/editTextWay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="@string/way"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:text="4008"/>
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/location_s_name"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:text="" />
+
+    <Button
+        android:id="@+id/buttonSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:padding="15dp"
+        android:enabled="false"
+        android:background="@drawable/states_button_accent"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/search" />
+</LinearLayout>

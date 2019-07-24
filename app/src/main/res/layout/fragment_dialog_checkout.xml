@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ContentDescription"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="25dp"
+    android:background="@drawable/bg_logo_cut">
+
+    <TextView
+        android:id="@+id/textViewPaymentMethodLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/textColorPrimary"
+        android:textStyle="bold"
+        android:text="@string/payment_method" />
+
+    <ImageButton
+        android:id="@+id/imageButtonEditPaymentMethod"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewPaymentMethodLabel"
+        android:layout_alignTop="@id/textViewPaymentMethod"
+        android:layout_alignBottom="@id/textViewPaymentMethod"
+        android:background="@drawable/states_button_accent"
+        android:tint="@color/colorPrimary"
+        app:srcCompat="@drawable/ic_edit" />
+
+    <TextView
+        android:id="@+id/textViewPaymentMethod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewPaymentMethodLabel"
+        android:layout_toEndOf="@id/imageButtonEditPaymentMethod"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/round_edged_background"
+        android:backgroundTint="@color/textColorPrimary" />
+
+    <TextView
+        android:id="@+id/textViewLocationLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageButtonEditPaymentMethod"
+        android:layout_marginTop="25dp"
+        android:textSize="20sp"
+        android:textColor="@color/textColorPrimary"
+        android:textStyle="bold"
+        android:text="@string/deliver_to" />
+
+    <ImageButton
+        android:id="@+id/imageButtonEditLocation"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewLocationLabel"
+        android:layout_alignTop="@id/textViewLocation"
+        android:layout_alignBottom="@id/textViewLocation"
+        android:background="@drawable/states_button_accent"
+        android:tint="@color/colorPrimary"
+        app:srcCompat="@drawable/ic_edit" />
+
+    <TextView
+        android:id="@+id/textViewLocation"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewLocationLabel"
+        android:layout_toEndOf="@id/imageButtonEditLocation"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:background="@drawable/round_edged_background"
+        android:backgroundTint="@color/textColorPrimary"
+        android:ellipsize="end"
+        android:maxLines="1"/>
+
+    <Button
+        android:id="@+id/buttonPlaceOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageButtonEditLocation"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/states_button_text_primary"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/place_order" />
+</RelativeLayout>

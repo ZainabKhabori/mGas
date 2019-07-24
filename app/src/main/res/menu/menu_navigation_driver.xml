@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navItemProfile"
+            android:icon="@drawable/ic_profile"
+            android:title="@string/menu_profile" />
+
+        <item
+            android:id="@+id/navItemIncomingRequests"
+            android:icon="@drawable/ic_incoming_requests"
+            android:title="@string/incoming_requests" />
+
+        <item
+            android:id="@+id/navItemRequestQueue"
+            android:icon="@drawable/ic_delivery"
+            android:title="@string/request_queue" />
+
+        <item
+            android:id="@+id/navItemAllRequests"
+            android:icon="@drawable/ic_request_history"
+            android:title="@string/request_history" />
+
+        <item
+            android:id="@+id/navItemReportedIssues"
+            android:icon="@drawable/ic_reported_issues"
+            android:title="@string/reported_issues" />
+
+        <item
+            android:id="@+id/navItemSettings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/menu_settings" />
+
+        <item
+            android:id="@+id/navItemTermsAndConditions"
+            android:icon="@drawable/ic_legal"
+            android:title="@string/terms_amp_conditions" />
+    </group>
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/navItemLogout"
+                android:title="@string/logout"
+                android:icon="@drawable/ic_logout" />
+        </menu>
+    </item>
+</menu>

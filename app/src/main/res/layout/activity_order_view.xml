@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    tools:context=".activities.OrderViewActivity">
+
+    <TextView
+        android:id="@+id/textViewLocationLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        android:textDirection="locale"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:drawableStart="@drawable/ic_location_accent"
+        android:drawablePadding="5dp"
+        android:text="@string/delivery_location" />
+
+    <TextView
+        android:id="@+id/textViewLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textViewLocationLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="5dp"
+        android:textDirection="locale"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/textViewDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textViewLocation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/textViewStatus"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center_vertical"
+        android:textDirection="locale"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:drawableStart="@drawable/ic_calendar"
+        android:drawablePadding="5dp" />
+
+    <TextView
+        android:id="@+id/textViewStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/textViewDate"
+        app:layout_constraintTop_toBottomOf="@id/textViewLocation"
+        app:layout_constraintBottom_toBottomOf="@id/textViewDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textDirection="locale"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewDeliveryOption"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textViewDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/textViewDeliveryOptionCost"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center_vertical"
+        android:textDirection="locale"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:drawableStart="@drawable/ic_delivery_options_small"
+        android:drawablePadding="5dp" />
+
+    <TextView
+        android:id="@+id/textViewDeliveryOptionCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/textViewDeliveryOption"
+        app:layout_constraintTop_toBottomOf="@id/textViewStatus"
+        app:layout_constraintBottom_toBottomOf="@id/textViewDeliveryOption"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textDirection="locale"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary" />
+
+    <CheckBox
+        android:id="@+id/checkBoxClimbStairs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textViewDeliveryOption"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/textViewClimbStairsCost"
+        android:layout_marginTop="10dp"
+        android:textDirection="locale"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:buttonTint="@color/colorAccent"
+        android:text="@string/climb_stairs" />
+
+    <TextView
+        android:id="@+id/textViewClimbStairsCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textViewDeliveryOptionCost"
+        app:layout_constraintTop_toTopOf="@id/checkBoxClimbStairs"
+        app:layout_constraintBottom_toBottomOf="@id/checkBoxClimbStairs"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:textDirection="locale"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/textViewTotalCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/checkBoxClimbStairs"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        android:textDirection="locale"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewRecyclerServices"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textViewTotalCost"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="20dp"
+        android:textDirection="locale"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/services_ordered" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewServices"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/textViewRecyclerServices"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/textViewRecyclerFeedback"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:id="@+id/textViewRecyclerFeedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewServices"
+        app:layout_constraintBottom_toTopOf="@id/recyclerViewFeedback"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        android:textDirection="locale"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/feedback" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewFeedback"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/textViewRecyclerFeedback"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="5dp"/>
+</android.support.constraint.ConstraintLayout>
