@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,7 +28,8 @@ public class SettingsActivity extends ConsumerDrawerBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        FrameLayout frameLayoutActivityContent = findViewById(R.id.frameLayoutActivityContent);
+        getLayoutInflater().inflate(R.layout.activity_settings, frameLayoutActivityContent);
 
         linearLayoutArabic = findViewById(R.id.linearLayoutArabic);
         linearLayoutEnglish = findViewById(R.id.linearLayoutEnglish);

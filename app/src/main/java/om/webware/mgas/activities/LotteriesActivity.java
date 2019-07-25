@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,7 +37,8 @@ public class LotteriesActivity extends ConsumerDrawerBaseActivity implements Lot
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lotteries);
+        FrameLayout frameLayoutActivityContent = findViewById(R.id.frameLayoutActivityContent);
+        getLayoutInflater().inflate(R.layout.activity_lotteries, frameLayoutActivityContent);
 
         linearLayoutLotteries = findViewById(R.id.linearLayoutLotteries);
         textViewNoLotteries = findViewById(R.id.textViewNoLotteries);

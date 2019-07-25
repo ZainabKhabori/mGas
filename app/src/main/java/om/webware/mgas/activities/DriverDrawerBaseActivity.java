@@ -1,8 +1,10 @@
 package om.webware.mgas.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,6 +20,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.Locale;
+
 import om.webware.mgas.R;
 import om.webware.mgas.api.User;
 import om.webware.mgas.server.Server;
@@ -29,11 +33,16 @@ public class DriverDrawerBaseActivity extends AppCompatActivity implements Navig
     private DrawerLayout drawer;
     private DatabaseHelper helper;
 
+    private String currentLanguage;
+
     @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_drawer_base);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        currentLanguage = preferences.getString("APP_LANG", Locale.getDefault().getLanguage());
 
         Toolbar toolbarDriver = findViewById(R.id.toolbarDriver);
         setSupportActionBar(toolbarDriver);
@@ -74,6 +83,17 @@ public class DriverDrawerBaseActivity extends AppCompatActivity implements Navig
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if(!currentLanguage.equals(preferences.getString("APP_LANG", Locale.getDefault().getLanguage()))) {
+            currentLanguage = preferences.getString("APP_LANG", Locale.getDefault().getLanguage());
+            recreate();
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         if(drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -86,16 +106,28 @@ public class DriverDrawerBaseActivity extends AppCompatActivity implements Navig
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Intent intent;
         switch(menuItem.getItemId()) {
+            case R.id.navItemHome:
+                if(!(this instanceof DriverMainActivity)) {
+                    intent = new Intent(this, DriverMainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                break;
             case R.id.navItemProfile:
                 break;
             case R.id.navItemIncomingRequests:
                 break;
             case R.id.navItemRequestQueue:
-                intent = new Intent(this, RequestQueueActivity.class);
-                startActivity(intent);
+                if(!(this instanceof RequestQueueActivity)) {
+                    intent = new Intent(this, RequestQueueActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.navItemAllRequests:
-                intent = new Intent(this, OrdersActivity.class);
+                if(!(this instanceof RequestQueueActivity)) {
+                    intent = new Intent(this, OrdersActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.navItemReportedIssues:
                 break;

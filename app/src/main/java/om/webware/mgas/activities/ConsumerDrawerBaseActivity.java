@@ -8,12 +8,9 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
 import android.text.style.TextAppearanceSpan;
-import android.util.Log;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -22,8 +19,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,7 +41,7 @@ public class ConsumerDrawerBaseActivity extends AppCompatActivity
     private DatabaseHelper helper;
     private boolean open = false;
 
-    private String currentLangusge;
+    private String currentLanguage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +49,7 @@ public class ConsumerDrawerBaseActivity extends AppCompatActivity
         setContentView(R.layout.activity_consumer_drawer_base);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        currentLangusge = preferences.getString("APP_LANG", Locale.getDefault().getLanguage());
+        currentLanguage = preferences.getString("APP_LANG", Locale.getDefault().getLanguage());
 
         final boolean rtl = getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
         helper = new DatabaseHelper(this);
@@ -154,8 +149,8 @@ public class ConsumerDrawerBaseActivity extends AppCompatActivity
         super.onResume();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if(!currentLangusge.equals(preferences.getString("APP_LANG", Locale.getDefault().getLanguage()))) {
-            currentLangusge = preferences.getString("APP_LANG", Locale.getDefault().getLanguage());
+        if(!currentLanguage.equals(preferences.getString("APP_LANG", Locale.getDefault().getLanguage()))) {
+            currentLanguage = preferences.getString("APP_LANG", Locale.getDefault().getLanguage());
             recreate();
         }
     }
@@ -175,29 +170,39 @@ public class ConsumerDrawerBaseActivity extends AppCompatActivity
         int id = item.getItemId();
         Intent intent;
 
-        if(id == R.id.navItemHome) {
+        String name = getIntent().getStringExtra("NAME") == null? "" : getIntent().getStringExtra("NAME");
 
+        if(id == R.id.navItemHome && !(this instanceof ConsumerMainActivity)) {
+            intent = new Intent(this, ConsumerMainActivity.class);
+            startActivity(intent);
+            finish();
         } else if (id == R.id.navItemProfile) {
 
-        } else if (id == R.id.navItemOrders) {
+        } else if (id == R.id.navItemOrders && !(this instanceof OrdersActivity)) {
             intent = new Intent(this, OrdersActivity.class);
             startActivity(intent);
-        } else if (id == R.id.navItemLotteries) {
+        } else if (id == R.id.navItemLotteries && !(this instanceof LotteriesActivity)) {
             intent = new Intent(this, LotteriesActivity.class);
             startActivity(intent);
-        } else if (id == R.id.navItemSettings) {
+        } else if (id == R.id.navItemSettings && !(this instanceof SettingsActivity)) {
             intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
         } else if (id == R.id.navItemTermsAndConditions) {
 
-        } else if(id == R.id.navItemIndustrialGasRefill) {
+        } else if(id == R.id.navItemIndustrialGasRefill && (name.equals("") ||
+                !name.equals(getString(R.string.menu_industrial_gas_refill)))) {
             intent = new Intent(this, ComingSoonActivity.class);
+            intent.putExtra("NAME", getString(R.string.menu_industrial_gas_refill));
             startActivity(intent);
-        } else if(id == R.id.navItemCompositeCylinder) {
+        } else if(id == R.id.navItemCompositeCylinder && (name.equals("") ||
+                !name.equals(getString(R.string.menu_composite_cylinder)))) {
             intent = new Intent(this, ComingSoonActivity.class);
+            intent.putExtra("NAME", getString(R.string.menu_composite_cylinder));
             startActivity(intent);
-        } else if(id == R.id.navItemGasAccessories) {
+        } else if(id == R.id.navItemGasAccessories && (name.equals("") ||
+                !name.equals(getString(R.string.gas_accessories_items)))) {
             intent = new Intent(this, ComingSoonActivity.class);
+            intent.putExtra("NAME", getString(R.string.gas_accessories_items));
             startActivity(intent);
         } else if(id == R.id.navItemLogout) {
             helper.dropDatabase();
