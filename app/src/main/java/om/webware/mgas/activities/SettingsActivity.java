@@ -12,7 +12,7 @@ import android.widget.TextView;
 import om.webware.mgas.R;
 import om.webware.mgas.tools.LocaleChanger;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends ConsumerDrawerBaseActivity {
 
     private LinearLayout linearLayoutArabic;
     private TextView textViewArabic;

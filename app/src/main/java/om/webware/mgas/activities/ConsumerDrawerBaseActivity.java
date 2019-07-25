@@ -175,7 +175,9 @@ public class ConsumerDrawerBaseActivity extends AppCompatActivity
         int id = item.getItemId();
         Intent intent;
 
-        if (id == R.id.navItemProfile) {
+        if(id == R.id.navItemHome) {
+
+        } else if (id == R.id.navItemProfile) {
 
         } else if (id == R.id.navItemOrders) {
             intent = new Intent(this, OrdersActivity.class);

@@ -25,7 +25,7 @@ import om.webware.mgas.fragments.dialogs.WaitDialogFragment;
 import om.webware.mgas.server.MGasApi;
 import om.webware.mgas.server.Server;
 
-public class LotteriesActivity extends AppCompatActivity implements LotteriesRecyclerAdapter.OnItemClickListener {
+public class LotteriesActivity extends ConsumerDrawerBaseActivity implements LotteriesRecyclerAdapter.OnItemClickListener {
 
     private LinearLayout linearLayoutLotteries;
     private TextView textViewNoLotteries;

@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import om.webware.mgas.R;
 
-public class ComingSoonActivity extends AppCompatActivity {
+public class ComingSoonActivity extends ConsumerDrawerBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
