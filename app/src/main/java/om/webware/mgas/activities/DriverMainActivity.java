@@ -125,6 +125,10 @@ public class DriverMainActivity extends DriverDrawerBaseActivity implements Navi
         tracker.setOnUserLocationChangedListener(this);
     }
 
+    private void acceptOrderAction() {
+
+    }
+
     private Emitter.Listener orderReceived = new Emitter.Listener() {
         @Override
         public void call(final Object... args) {
