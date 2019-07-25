@@ -13,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.text.SpannableString;
 import android.text.style.TextAppearanceSpan;
+import android.util.Log;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -150,12 +151,12 @@ public class ConsumerDrawerBaseActivity extends AppCompatActivity
 
     @Override
     protected void onResume() {
+        super.onResume();
+
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         if(!currentLangusge.equals(preferences.getString("APP_LANG", Locale.getDefault().getLanguage()))) {
             currentLangusge = preferences.getString("APP_LANG", Locale.getDefault().getLanguage());
             recreate();
-        } else {
-            super.onResume();
         }
     }
 
