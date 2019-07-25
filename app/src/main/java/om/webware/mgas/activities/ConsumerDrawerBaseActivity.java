@@ -1,10 +1,12 @@
 package om.webware.mgas.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -27,6 +29,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.Locale;
+
 import om.webware.mgas.R;
 import om.webware.mgas.api.User;
 import om.webware.mgas.server.Server;
@@ -41,10 +45,15 @@ public class ConsumerDrawerBaseActivity extends AppCompatActivity
     private DatabaseHelper helper;
     private boolean open = false;
 
+    private String currentLangusge;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consumer_drawer_base);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        currentLangusge = preferences.getString("APP_LANG", Locale.getDefault().getLanguage());
 
         final boolean rtl = getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
         helper = new DatabaseHelper(this);
@@ -140,6 +149,17 @@ public class ConsumerDrawerBaseActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onResume() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if(!currentLangusge.equals(preferences.getString("APP_LANG", Locale.getDefault().getLanguage()))) {
+            currentLangusge = preferences.getString("APP_LANG", Locale.getDefault().getLanguage());
+            recreate();
+        } else {
+            super.onResume();
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -163,7 +183,8 @@ public class ConsumerDrawerBaseActivity extends AppCompatActivity
             intent = new Intent(this, LotteriesActivity.class);
             startActivity(intent);
         } else if (id == R.id.navItemSettings) {
-
+            intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
         } else if (id == R.id.navItemTermsAndConditions) {
 
         } else if(id == R.id.navItemIndustrialGasRefill) {
