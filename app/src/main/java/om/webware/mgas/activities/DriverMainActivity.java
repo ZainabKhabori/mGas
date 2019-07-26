@@ -1,8 +1,10 @@
 package om.webware.mgas.activities;
 
 import android.Manifest;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,7 +20,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import io.socket.client.Socket;
@@ -91,12 +95,33 @@ public class DriverMainActivity extends DriverDrawerBaseActivity implements Navi
         socket.emit("clientOnline", user.getId());
         socket.emit("driverStatusChanged", user.getId(), "online");
         socket.on("orderReceived", orderReceived);
+
+        Type ordersType = new TypeToken<ArrayList<Order>>(){}.getType();
+        Type usersType = new TypeToken<ArrayList<User>>(){}.getType();
+        Type locationsType = new TypeToken<ArrayList<om.webware.mgas.api.Location>>(){}.getType();
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+//        String ordersJson = preferences
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         socket.emit("driverStatusChanged", user.getId(), "busy");
+
+        String ordersJson = new Gson().toJson(orders);
+        String usersJson = new Gson().toJson(users);
+        String locationsJson = new Gson().toJson(locations);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putString("INCOMING_ORDERS", ordersJson);
+        editor.putString("INCOMING_ORDERS_USERS", usersJson);
+        editor.putString("INCOMING_ORDERS_LOCATIONS", locationsJson);
+
+        editor.apply();
     }
 
     @Override
