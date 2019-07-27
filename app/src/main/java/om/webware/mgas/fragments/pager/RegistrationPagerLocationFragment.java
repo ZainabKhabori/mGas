@@ -1,5 +1,6 @@
 package om.webware.mgas.fragments.pager;
 
+import android.Manifest;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,7 +22,10 @@ import android.widget.TextView;
 
 import om.webware.mgas.R;
 import om.webware.mgas.fragments.dialogs.ChooseLocDialogFragment;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.RuntimePermissions;
 
+@RuntimePermissions
 public class RegistrationPagerLocationFragment extends Fragment implements View.OnClickListener,
         ChooseLocDialogFragment.OnDismissListener, TextWatcher {
 
@@ -91,7 +95,8 @@ public class RegistrationPagerLocationFragment extends Fragment implements View.
 
     @Override
     public void onClick(View v) {
-        selectLocationAction();
+        RegistrationPagerLocationFragmentPermissionsDispatcher
+                .selectLocationActionWithPermissionCheck(this);
     }
 
     @Override
@@ -156,7 +161,8 @@ public class RegistrationPagerLocationFragment extends Fragment implements View.
         //
     }
 
-    private void selectLocationAction() {
+    @NeedsPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+    public void selectLocationAction() {
         AppCompatActivity activity = (AppCompatActivity)context;
         ChooseLocDialogFragment chooseLocationDialogFragment = ChooseLocDialogFragment.createDialog();
         chooseLocationDialogFragment.setContext(context);
@@ -210,5 +216,11 @@ public class RegistrationPagerLocationFragment extends Fragment implements View.
 
     public double getLng() {
         return lng;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        RegistrationPagerLocationFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 }

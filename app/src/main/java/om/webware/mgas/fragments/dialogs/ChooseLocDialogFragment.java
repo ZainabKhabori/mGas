@@ -1,8 +1,8 @@
 package om.webware.mgas.fragments.dialogs;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.location.Location;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,10 +36,7 @@ import om.webware.mgas.R;
 import om.webware.mgas.server.MGasSocket;
 import om.webware.mgas.tools.GPSTracker;
 import om.webware.mgas.tools.SavedObjects;
-import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.RuntimePermissions;
 
-@RuntimePermissions
 public class ChooseLocDialogFragment extends DialogFragment implements View.OnClickListener, OnMapReadyCallback,
         AddressSearchDialogFragment.OnDismissListener, GoogleMap.OnMapClickListener, GPSTracker.OnUserLocationChangedListener {
 
@@ -116,7 +114,7 @@ public class ChooseLocDialogFragment extends DialogFragment implements View.OnCl
             lng = 1000000;
         }
 
-        ChooseLocDialogFragmentPermissionsDispatcher.setupGPSWithPermissionCheck(this);
+        setupGPS();
 
         if (getFragmentManager() != null) {
             SupportMapFragment mapFragment = (SupportMapFragment) getFragmentManager()
@@ -128,8 +126,17 @@ public class ChooseLocDialogFragment extends DialogFragment implements View.OnCl
     }
 
     @Override
+    public void onCancel(DialogInterface dialog) {
+        super.onCancel(dialog);
+
+        SavedObjects.getSavedObjects().put("CHOOSE_LOC_DIALOG_VIEW", getView());
+        SavedObjects.getSavedObjects().put("CHOOSE_LOC_LAT", lat);
+        SavedObjects.getSavedObjects().put("CHOOSE_LOC_LNG", lng);
+    }
+
+    @Override
     public void onMapReady(GoogleMap googleMap) {
-        ChooseLocDialogFragmentPermissionsDispatcher.setupMapWithPermissionCheck(this, googleMap);
+        setupMap(googleMap);
     }
 
     @Override
@@ -155,7 +162,12 @@ public class ChooseLocDialogFragment extends DialogFragment implements View.OnCl
 
     @Override
     public void onUserLocationChanged(Location location) {
+        Log.v("SPLASH_MAP_LOC", "user location changed");
+
         if(map != null) {
+            Log.v("SPLASH_MAP_LOC", "map != null");
+
+
             progressBarWait.setVisibility(View.GONE);
             tracker.setOnUserLocationChangedListener(null);
 
@@ -195,7 +207,6 @@ public class ChooseLocDialogFragment extends DialogFragment implements View.OnCl
     }
 
     @SuppressLint("MissingPermission")
-    @NeedsPermission(Manifest.permission.ACCESS_FINE_LOCATION)
     public void setupMap(GoogleMap googleMap) {
         map = googleMap;
         map.setMinZoomPreference(8);
@@ -230,7 +241,6 @@ public class ChooseLocDialogFragment extends DialogFragment implements View.OnCl
         }
     }
 
-    @NeedsPermission(Manifest.permission.ACCESS_FINE_LOCATION)
     public void setupGPS() {
         tracker = new GPSTracker(context);
         tracker.setOnUserLocationChangedListener(this);
@@ -290,10 +300,4 @@ public class ChooseLocDialogFragment extends DialogFragment implements View.OnCl
             });
         }
     };
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        ChooseLocDialogFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
-    }
 }

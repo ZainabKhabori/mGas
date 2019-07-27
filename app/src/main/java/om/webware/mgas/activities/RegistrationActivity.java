@@ -6,11 +6,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.rd.PageIndicatorView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -18,6 +24,8 @@ import om.webware.mgas.R;
 import om.webware.mgas.adapters.RegistrationPagerAdapter;
 import om.webware.mgas.api.Consumer;
 import om.webware.mgas.api.Location;
+import om.webware.mgas.api.Service;
+import om.webware.mgas.api.Services;
 import om.webware.mgas.api.User;
 import om.webware.mgas.customViews.LockableViewPager;
 import om.webware.mgas.fragments.dialogs.ErrorDialogFragment;
@@ -25,7 +33,9 @@ import om.webware.mgas.fragments.dialogs.OTPDialogFragment;
 import om.webware.mgas.fragments.dialogs.WaitDialogFragment;
 import om.webware.mgas.fragments.pager.RegistrationPagerInfoFragment;
 import om.webware.mgas.fragments.pager.RegistrationPagerLocationFragment;
+import om.webware.mgas.server.MGasApi;
 import om.webware.mgas.server.MGasSocket;
+import om.webware.mgas.server.Server;
 import om.webware.mgas.server.SocketResponse;
 import om.webware.mgas.tools.DatabaseHelper;
 import om.webware.mgas.tools.SavedObjects;
@@ -79,6 +89,47 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     protected void onPause() {
         super.onPause();
         socket.off();
+    }
+
+    private void getServices(final String token, final Intent intent, final DatabaseHelper helper) {
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("authorization", "Bearer " + token);
+        Server.request(RegistrationActivity.this, Request.Method.GET, MGasApi.SERVICES, headers,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if(response.startsWith(MGasApi.IISNODE_ERROR)) {
+                            getServices(token, intent, helper);
+                        } else {
+                            Services services = new Services(response);
+                            for(Service service : services.getServices()) {
+                                helper.insert(DatabaseHelper.Tables.SERVICES, service);
+                            }
+
+                            waitDialogFragment.dismiss();
+
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        try {
+                            waitDialogFragment.dismiss();
+
+                            String msgJsonStr = new String(error.networkResponse.data, StandardCharsets.UTF_8);
+                            JSONObject msgJson = new JSONObject(msgJsonStr);
+                            String msg = msgJson.getString("error");
+
+                            ErrorDialogFragment errorDialogFragment = ErrorDialogFragment.creteDialog(msg);
+                            errorDialogFragment.show(getSupportFragmentManager(), "ERROR_DIALOG");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
     }
 
     @Override
@@ -195,11 +246,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                         SavedObjects.getSavedObjects().remove("CHOOSE_LOC_LAT");
                         SavedObjects.getSavedObjects().remove("CHOOSE_LOC_LNG");
 
-                        waitDialogFragment.dismiss();
-
                         Intent intent = new Intent(RegistrationActivity.this, ConsumerMainActivity.class);
-                        startActivity(intent);
-                        finish();
+                        getServices(user.getToken(), intent, helper);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
