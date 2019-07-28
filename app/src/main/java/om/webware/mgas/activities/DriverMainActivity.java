@@ -55,6 +55,7 @@ public class DriverMainActivity extends DriverDrawerBaseActivity implements Navi
 
     private ProgressBar progressBarWait;
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,9 +77,26 @@ public class DriverMainActivity extends DriverDrawerBaseActivity implements Navi
         DividerItemDecoration decoration = new DividerItemDecoration(recyclerViewIncomingOrders.getContext(),
                 manager.getOrientation());
 
-        orders = new ArrayList<>();
-        users = new ArrayList<>();
-        locations = new ArrayList<>();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String ordersJson = preferences.getString("INCOMING_ORDERS", "empty");
+        String userJson = preferences.getString("INCOMING_ORDERS_USERS", "empty");
+        String locationsJson = preferences.getString("INCOMING_ORDERS_LOCATIONS", "empty");
+
+        if(!ordersJson.equals("empty") && !userJson.equals("empty") && !locationsJson.equals("empty")) {
+            Type ordersType = new TypeToken<ArrayList<Order>>(){}.getType();
+            Type usersType = new TypeToken<ArrayList<User>>(){}.getType();
+            Type locationsType = new TypeToken<ArrayList<om.webware.mgas.api.Location>>(){}.getType();
+
+            orders = new Gson().fromJson(ordersJson, ordersType);
+            users = new Gson().fromJson(userJson, usersType);
+            locations = new Gson().fromJson(locationsJson, locationsType);
+        } else {
+            orders = new ArrayList<>();
+            users = new ArrayList<>();
+            locations = new ArrayList<>();
+        }
+
         adapter = new IncomingOrdersRecyclerAdapter(this, orders, users, locations);
         adapter.setOnItemClickListener(this);
 
@@ -95,14 +113,6 @@ public class DriverMainActivity extends DriverDrawerBaseActivity implements Navi
         socket.emit("clientOnline", user.getId());
         socket.emit("driverStatusChanged", user.getId(), "online");
         socket.on("orderReceived", orderReceived);
-
-        Type ordersType = new TypeToken<ArrayList<Order>>(){}.getType();
-        Type usersType = new TypeToken<ArrayList<User>>(){}.getType();
-        Type locationsType = new TypeToken<ArrayList<om.webware.mgas.api.Location>>(){}.getType();
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-//        String ordersJson = preferences
     }
 
     @Override
@@ -172,11 +182,13 @@ public class DriverMainActivity extends DriverDrawerBaseActivity implements Navi
                     om.webware.mgas.api.Location loc = new Gson().fromJson(json.getAsJsonObject("orderLocation").toString(),
                             om.webware.mgas.api.Location.class);
 
+                    Log.v("SPLASH_ORDERS", orders.size() + "");
+
                     orders.add(order);
                     users.add(consumerInfo);
                     locations.add(loc);
 
-                    adapter.notifyItemInserted(orders.size());
+                    adapter.notifyItemInserted(orders.size() - 1);
                 }
             });
         }

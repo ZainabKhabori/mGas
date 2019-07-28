@@ -106,16 +106,14 @@ public class DriverDrawerBaseActivity extends AppCompatActivity implements Navig
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Intent intent;
         switch(menuItem.getItemId()) {
-            case R.id.navItemHome:
+            case R.id.navItemProfile:
+                break;
+            case R.id.navItemIncomingRequests:
                 if(!(this instanceof DriverMainActivity)) {
                     intent = new Intent(this, DriverMainActivity.class);
                     startActivity(intent);
                     finish();
                 }
-                break;
-            case R.id.navItemProfile:
-                break;
-            case R.id.navItemIncomingRequests:
                 break;
             case R.id.navItemRequestQueue:
                 if(!(this instanceof RequestQueueActivity)) {

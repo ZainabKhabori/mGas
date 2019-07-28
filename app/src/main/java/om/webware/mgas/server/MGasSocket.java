@@ -36,7 +36,7 @@ public class MGasSocket {
                 @Override
                 public boolean verify(String hostname, SSLSession session) {
                     HostnameVerifier hostnameVerifier = HttpsURLConnection.getDefaultHostnameVerifier();
-                    Log.v("SPLASH_HOSTNAME", hostname);
+//                    Log.v("SPLASH_HOSTNAME", hostname);
                     return hostnameVerifier.verify(hostname, session);
                 }
             };
@@ -56,9 +56,9 @@ public class MGasSocket {
                         public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
                             try {
                                 chain[0].checkValidity();
-                                Log.v("SPLASH_SOCKET", "trusted");
+//                                Log.v("SPLASH_SOCKET", "trusted");
                             } catch (Exception e) {
-                                Log.v("SPLASH_SOCKET", "untrusted");
+//                                Log.v("SPLASH_SOCKET", "untrusted");
                                 throw new CertificateException("Certificate not valid or trusted.");
                             }
                         }

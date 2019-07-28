@@ -1,6 +1,8 @@
 package om.webware.mgas.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -30,7 +32,10 @@ import om.webware.mgas.fragments.dialogs.WaitDialogFragment;
 import om.webware.mgas.server.MGasApi;
 import om.webware.mgas.server.Server;
 import om.webware.mgas.tools.DatabaseHelper;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.RuntimePermissions;
 
+@RuntimePermissions
 public class AddLocationActivity extends AppCompatActivity implements ChooseLocDialogFragment.OnDismissListener, TextWatcher {
 
     private RelativeLayout relativeLayoutDetails;
@@ -138,10 +143,7 @@ public class AddLocationActivity extends AppCompatActivity implements ChooseLocD
     }
 
     public void selectLocationAction(View view) {
-        ChooseLocDialogFragment chooseLocationDialogFragment = ChooseLocDialogFragment.createDialog();
-        chooseLocationDialogFragment.setContext(this);
-        chooseLocationDialogFragment.setOnDismissListener(this);
-        chooseLocationDialogFragment.show(getSupportFragmentManager(), "CHOOSE_LOCATION_DIALOG");
+        AddLocationActivityPermissionsDispatcher.showChooseLocDialogWithPermissionCheck(this);
     }
 
     public void confirmAction(View view) {
@@ -169,6 +171,14 @@ public class AddLocationActivity extends AppCompatActivity implements ChooseLocD
         waitDialogFragment.show(getSupportFragmentManager(), "ADD_LOC_WAIT_DIALOG");
 
         addLocation(user.getId(), user.getToken(), json.toString(), helper);
+    }
+
+    @NeedsPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+    public void showChooseLocDialog() {
+        ChooseLocDialogFragment chooseLocationDialogFragment = ChooseLocDialogFragment.createDialog();
+        chooseLocationDialogFragment.setContext(this);
+        chooseLocationDialogFragment.setOnDismissListener(this);
+        chooseLocationDialogFragment.show(getSupportFragmentManager(), "CHOOSE_LOCATION_DIALOG");
     }
 
     private void addLocation(final String id, final String token, final String body, final DatabaseHelper helper) {
@@ -212,5 +222,11 @@ public class AddLocationActivity extends AppCompatActivity implements ChooseLocD
                         Log.v("SPLASH_ADD_LOC_ERR", new String(error.networkResponse.data, StandardCharsets.UTF_8));*/
                     }
                 });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        AddLocationActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
     }
 }

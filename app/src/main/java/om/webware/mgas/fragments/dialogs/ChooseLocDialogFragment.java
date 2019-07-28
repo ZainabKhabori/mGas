@@ -167,7 +167,6 @@ public class ChooseLocDialogFragment extends DialogFragment implements View.OnCl
         if(map != null) {
             Log.v("SPLASH_MAP_LOC", "map != null");
 
-
             progressBarWait.setVisibility(View.GONE);
             tracker.setOnUserLocationChangedListener(null);
 
