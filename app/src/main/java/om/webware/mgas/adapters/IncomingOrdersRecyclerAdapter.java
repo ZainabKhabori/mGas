@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
@@ -219,14 +220,12 @@ public class IncomingOrdersRecyclerAdapter extends RecyclerView.Adapter<Incoming
         }
 
         long milliseconds = hours * 3600000;
-        long difference = order.getOrderDate().getTime() - new Date().getTime();
-        long time = milliseconds - difference;
 
         if(viewHolder.getTimer() != null) {
             viewHolder.getTimer().cancel();
         }
 
-        CountDownTimer timer = new CountDownTimer(time, 1000) {
+        CountDownTimer timer = new CountDownTimer(milliseconds, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 long seconds = millisUntilFinished / 1000;

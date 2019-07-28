@@ -12,13 +12,17 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 
 import io.socket.client.Socket;
 import om.webware.mgas.R;
 import om.webware.mgas.server.MGasSocket;
 import om.webware.mgas.tools.GPSTracker;
+import om.webware.mgas.tools.RouteMapper;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
@@ -28,27 +32,24 @@ public class OrderLocationMapActivity extends AppCompatActivity implements OnMap
         GPSTracker.OnUserLocationChangedListener {
 
     private GoogleMap map;
+    private Marker driver;
 
     private Socket socket;
-
-    private int x = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_location_map);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        double lat = 1000000;
-        double lng = 1000000;
-
-        socket = MGasSocket.socket;
+/*        socket = MGasSocket.socket;
         socket.connect();
 
-        socket.emit("clientOnline", getIntent().getStringExtra("driverId"));
+        socket.emit("clientOnline", getIntent().getStringExtra("driverId"));*/
     }
 
 
@@ -80,22 +81,26 @@ public class OrderLocationMapActivity extends AppCompatActivity implements OnMap
             LatLng latLng = new LatLng(tracker.getLastKnownLocation().getLatitude(),
                     tracker.getLastKnownLocation().getLongitude());
 
-            map.addMarker(new MarkerOptions().position(latLng));
+            driver = map.addMarker(new MarkerOptions().position(latLng));
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 19));
+
+            Location location = new Gson().fromJson(getIntent().getStringExtra("LOC"), Location.class);
+            LatLng dest = new LatLng(location.getLatitude(), location.getLongitude());
+
+            map.addMarker(new MarkerOptions().position(dest));
+
+            MarkerOptions options = new MarkerOptions();
+            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+            map.addMarker(options.position(latLng));
+
+            RouteMapper mapper = new RouteMapper(this, map, latLng, dest);
+            mapper.mapRoutes();
         }
     }
 
     @Override
     public void onUserLocationChanged(Location location) {
-/*        if(lat == 1000000 && lng == 1000000) {
-            lat = location.getLatitude();
-            lng = location.getLongitude();
-        }
-
-        lat += 0.1;
-        lng += 0.1;*/
-
-        String driverId = getIntent().getStringExtra("driverId");
+/*        String driverId = getIntent().getStringExtra("driverId");
         double lat = location.getLatitude();
         double lng = location.getLongitude();
 
@@ -121,7 +126,16 @@ public class OrderLocationMapActivity extends AppCompatActivity implements OnMap
         map.addMarker(new MarkerOptions().position(latLng));
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 19));
 
-        socket.emit("driverLocationChanged", driverId, lat, lng);
+        socket.emit("driverLocationChanged", driverId, lat, lng);*/
+
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+        if(driver != null) {
+            driver.remove();
+        }
+
+        driver = map.addMarker(new MarkerOptions().position(latLng));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 19));
     }
 
     @Override

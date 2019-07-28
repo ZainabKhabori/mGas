@@ -1,6 +1,7 @@
 package om.webware.mgas.activities;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import om.webware.mgas.api.User;
 import om.webware.mgas.server.MGasSocket;
 import om.webware.mgas.tools.DatabaseHelper;
 import om.webware.mgas.tools.GPSTracker;
+import om.webware.mgas.tools.SavedObjects;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
@@ -48,6 +50,7 @@ public class DriverMainActivity extends DriverDrawerBaseActivity implements Navi
     private DatabaseHelper helper;
     private User user;
 
+    private RecyclerView recyclerViewIncomingOrders;
     private IncomingOrdersRecyclerAdapter adapter;
     private ArrayList<Order> orders;
     private ArrayList<User> users;
@@ -72,28 +75,28 @@ public class DriverMainActivity extends DriverDrawerBaseActivity implements Navi
         helper = new DatabaseHelper(this);
         user = (User)helper.select(DatabaseHelper.Tables.USERS, null);
 
-        RecyclerView recyclerViewIncomingOrders = findViewById(R.id.recyclerViewIncomingOrders);
+        recyclerViewIncomingOrders = findViewById(R.id.recyclerViewIncomingOrders);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         DividerItemDecoration decoration = new DividerItemDecoration(recyclerViewIncomingOrders.getContext(),
                 manager.getOrientation());
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-/*        SharedPreferences.Editor editor = preferences.edit();
+        SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
-        editor.apply();*/
+        editor.apply();
 
-        String ordersJson = preferences.getString("INCOMING_ORDERS", "empty");
-        String userJson = preferences.getString("INCOMING_ORDERS_USERS", "empty");
-        String locationsJson = preferences.getString("INCOMING_ORDERS_LOCATIONS", "empty");
+        String ordersJson = (String)SavedObjects.getSavedObjects().get("ORDERS");
+        String usersJson = (String)SavedObjects.getSavedObjects().get("USERS");
+        String locationsJson = (String)SavedObjects.getSavedObjects().get("LOCATIONS");
 
-        if(!ordersJson.equals("empty") && !userJson.equals("empty") && !locationsJson.equals("empty")) {
+        if(ordersJson != null && usersJson != null && locationsJson != null) {
             Type ordersType = new TypeToken<ArrayList<Order>>(){}.getType();
             Type usersType = new TypeToken<ArrayList<User>>(){}.getType();
             Type locationsType = new TypeToken<ArrayList<om.webware.mgas.api.Location>>(){}.getType();
 
             orders = new Gson().fromJson(ordersJson, ordersType);
-            users = new Gson().fromJson(userJson, usersType);
+            users = new Gson().fromJson(usersJson, usersType);
             locations = new Gson().fromJson(locationsJson, locationsType);
         } else {
             orders = new ArrayList<>();
@@ -128,14 +131,9 @@ public class DriverMainActivity extends DriverDrawerBaseActivity implements Navi
         String usersJson = new Gson().toJson(users);
         String locationsJson = new Gson().toJson(locations);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-
-        editor.putString("INCOMING_ORDERS", ordersJson);
-        editor.putString("INCOMING_ORDERS_USERS", usersJson);
-        editor.putString("INCOMING_ORDERS_LOCATIONS", locationsJson);
-
-        editor.apply();
+        SavedObjects.getSavedObjects().put("ORDERS", ordersJson);
+        SavedObjects.getSavedObjects().put("USERS", usersJson);
+        SavedObjects.getSavedObjects().put("LOCATIONS", locationsJson);
     }
 
     @Override
@@ -155,7 +153,12 @@ public class DriverMainActivity extends DriverDrawerBaseActivity implements Navi
 
     @Override
     public void onItemClick(View view, int index) {
+        IncomingOrdersRecyclerAdapter.ViewHolder holder = (IncomingOrdersRecyclerAdapter.ViewHolder)
+                recyclerViewIncomingOrders.findViewHolderForAdapterPosition(index);
 
+        if(view.getId() == holder.getImageButtonLocation().getId()) {
+
+        }
     }
 
     @NeedsPermission(Manifest.permission.ACCESS_FINE_LOCATION)
@@ -164,8 +167,15 @@ public class DriverMainActivity extends DriverDrawerBaseActivity implements Navi
         tracker.setOnUserLocationChangedListener(this);
     }
 
-    private void acceptOrderAction() {
+    private void acceptOrderAction(int index) {
 
+    }
+
+    private void orderLocationAction(int index) {
+        Intent intent = new Intent(this, OrderLocationMapActivity.class);
+        String location = new Gson().toJson(locations.get(index));
+        intent.putExtra("LOC", location);
+        startActivity(intent);
     }
 
     private Emitter.Listener orderReceived = new Emitter.Listener() {
@@ -185,8 +195,6 @@ public class DriverMainActivity extends DriverDrawerBaseActivity implements Navi
                     User consumerInfo = new Gson().fromJson(json.getAsJsonObject("consumerInfo").toString(), User.class);
                     om.webware.mgas.api.Location loc = new Gson().fromJson(json.getAsJsonObject("orderLocation").toString(),
                             om.webware.mgas.api.Location.class);
-
-                    Log.v("SPLASH_ORDERS", orders.size() + "");
 
                     orders.add(order);
                     users.add(consumerInfo);
