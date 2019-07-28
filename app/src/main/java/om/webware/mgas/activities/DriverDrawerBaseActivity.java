@@ -122,8 +122,8 @@ public class DriverDrawerBaseActivity extends AppCompatActivity implements Navig
                 }
                 break;
             case R.id.navItemAllRequests:
-                if(!(this instanceof RequestQueueActivity)) {
-                    intent = new Intent(this, OrdersActivity.class);
+                if(!(this instanceof DriverOrdersActivity)) {
+                    intent = new Intent(this, DriverOrdersActivity.class);
                     startActivity(intent);
                 }
                 break;

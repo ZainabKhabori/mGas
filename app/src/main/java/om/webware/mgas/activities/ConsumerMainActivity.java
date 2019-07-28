@@ -361,6 +361,11 @@ public class ConsumerMainActivity extends ConsumerDrawerBaseActivity implements 
 
             Location location = new Gson().fromJson(data.getStringExtra("LOCATION_JSON"), Location.class);
             locations.getLocations().add(location);
+        } else if(requestCode == 2 && resultCode == RESULT_OK) {
+            totalCost = 0;
+            orderServices.clear();
+            orderServiceIds.clear();
+            shrinkMakeOrderDrawer();
         }
     }
 
@@ -416,15 +421,7 @@ public class ConsumerMainActivity extends ConsumerDrawerBaseActivity implements 
     }
 
     public void shrinkMakeOrderLayoutAction(View view) {
-        viewPagerMakeOrder.setVisibility(View.GONE);
-        indicatorMakeOrder.setVisibility(View.GONE);
-        buttonAddToCart.setVisibility(View.GONE);
-        buttonViewCart.setVisibility(View.GONE);
-        imageViewShrink.setVisibility(View.GONE);
-
-        ValueAnimator animator = ValueAnimator.ofInt(FINAL_HEIGHT, START_HEIGHT);
-        animator.addUpdateListener(shrinkAnimation);
-        animator.start();
+        shrinkMakeOrderDrawer();
     }
 
     public void addToCartAction(View view) {
@@ -487,13 +484,25 @@ public class ConsumerMainActivity extends ConsumerDrawerBaseActivity implements 
             Intent intent = new Intent(this, CartActivity.class);
             intent.putExtra("ORDER", orderJson);
             intent.putExtra("DELIVERY_LOC", (String)spinnerLocations.getSelectedItem());
-            startActivity(intent);
+            startActivityForResult(intent, 2);
         }
     }
 
     public void addLocationAction(View view) {
         Intent intent = new Intent(this, AddLocationActivity.class);
         startActivityForResult(intent, 1);
+    }
+
+    private void shrinkMakeOrderDrawer() {
+        viewPagerMakeOrder.setVisibility(View.GONE);
+        indicatorMakeOrder.setVisibility(View.GONE);
+        buttonAddToCart.setVisibility(View.GONE);
+        buttonViewCart.setVisibility(View.GONE);
+        imageViewShrink.setVisibility(View.GONE);
+
+        ValueAnimator animator = ValueAnimator.ofInt(FINAL_HEIGHT, START_HEIGHT);
+        animator.addUpdateListener(shrinkAnimation);
+        animator.start();
     }
 
     private ArrayList<Service> getServices() {

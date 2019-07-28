@@ -161,6 +161,7 @@ public class CartActivity extends AppCompatActivity implements CartRecyclerAdapt
                     fragment.getWaitDialogFragment().dismiss();
                     Toast.makeText(CartActivity.this, getString(R.string.order_placed), Toast.LENGTH_LONG).show();
 
+                    setResult(RESULT_OK);
                     finish();
                 }
             });

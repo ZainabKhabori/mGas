@@ -79,6 +79,10 @@ public class DriverMainActivity extends DriverDrawerBaseActivity implements Navi
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+/*        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.apply();*/
+
         String ordersJson = preferences.getString("INCOMING_ORDERS", "empty");
         String userJson = preferences.getString("INCOMING_ORDERS_USERS", "empty");
         String locationsJson = preferences.getString("INCOMING_ORDERS_LOCATIONS", "empty");
