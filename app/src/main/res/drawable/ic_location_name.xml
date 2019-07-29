@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ic_tag_outline" />
+    <item android:drawable="@drawable/ic_location"
+        android:top="22dp"
+        android:right="19dp"
+        android:bottom="18dp"
+        android:left="21dp"/>
+</layer-list>

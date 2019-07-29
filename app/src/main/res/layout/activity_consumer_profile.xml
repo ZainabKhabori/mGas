@@ -120,10 +120,9 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/editTextPhone"
                 app:layout_constraintStart_toEndOf="@id/imageViewBirthday"
-                app:layout_constraintEnd_toStartOf="@id/textViewAge"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="30dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:ems="10"
                 android:padding="10dp"
                 android:inputType="date"
@@ -132,24 +131,34 @@
                 android:textSize="18sp"
                 android:textColor="@color/textColorPrimary"/>
 
+            <ImageView
+                android:id="@+id/imageViewAge"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintTop_toBottomOf="@id/imageViewBirthday"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="30dp"
+                app:srcCompat="@drawable/ic_cake"
+                android:tint="@color/colorAccent"/>
+
             <TextView
                 android:id="@+id/textViewAge"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="@id/editTextBirthday"
-                app:layout_constraintTop_toBottomOf="@id/editTextPhone"
-                app:layout_constraintBottom_toBottomOf="@id/editTextBirthday"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imageViewAge"
+                app:layout_constraintTop_toBottomOf="@id/editTextBirthday"
+                app:layout_constraintBottom_toBottomOf="@id/imageViewAge"
+                app:layout_constraintStart_toEndOf="@id/imageViewAge"
+                android:layout_marginStart="10dp"
                 android:textDirection="locale"
                 android:textSize="18sp"
-                android:textColor="@color/textColorPrimary"
-                android:text="TextView" />
+                android:textColor="@color/textColorPrimary" />
 
             <ImageView
                 android:id="@+id/imageViewLocation"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                app:layout_constraintTop_toBottomOf="@id/imageViewBirthday"
+                app:layout_constraintTop_toBottomOf="@id/imageViewAge"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="30dp"
                 app:srcCompat="@drawable/ic_location"
