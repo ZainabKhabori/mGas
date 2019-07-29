@@ -151,31 +151,30 @@ public class DriverMainActivity extends DriverDrawerBaseActivity implements Navi
         }
     }
 
+
     @Override
     public void onItemClick(View view, int index) {
-        IncomingOrdersRecyclerAdapter.ViewHolder holder = (IncomingOrdersRecyclerAdapter.ViewHolder)
-                recyclerViewIncomingOrders.findViewHolderForAdapterPosition(index);
 
-        if(view.getId() == holder.getImageButtonLocation().getId()) {
+    }
 
-        }
+    @Override
+    public void onAcceptButtonClick(View view, int index) {
+
+    }
+
+    @Override
+    public void onLocationButtonClick(View view, int index) {
+        Intent intent = new Intent(this, OrderLocationMapActivity.class);
+        String location = new Gson().toJson(locations.get(index));
+
+        intent.putExtra("LOC", location);
+        startActivity(intent);
     }
 
     @NeedsPermission(Manifest.permission.ACCESS_FINE_LOCATION)
     public void setupGPS() {
         GPSTracker tracker = new GPSTracker(this);
         tracker.setOnUserLocationChangedListener(this);
-    }
-
-    private void acceptOrderAction(int index) {
-
-    }
-
-    private void orderLocationAction(int index) {
-        Intent intent = new Intent(this, OrderLocationMapActivity.class);
-        String location = new Gson().toJson(locations.get(index));
-        intent.putExtra("LOC", location);
-        startActivity(intent);
     }
 
     private Emitter.Listener orderReceived = new Emitter.Listener() {

@@ -1,10 +1,13 @@
 package om.webware.mgas.fragments.dialogs;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 
 import io.socket.client.Socket;
 import om.webware.mgas.R;
+import om.webware.mgas.activities.AddLocationActivity;
 import om.webware.mgas.api.BankCard;
 import om.webware.mgas.api.Location;
 import om.webware.mgas.api.Locations;
@@ -31,6 +35,9 @@ import om.webware.mgas.tools.DatabaseHelper;
 public class CheckoutDialogFragment extends DialogFragment
         implements PaymentDialogFragment.OnPaymentMethodSelectedListener,
         DeliverToDialogFragment.OnLocationSelectedListener {
+
+    private Context context;
+    private AppCompatActivity activity;
 
     private TextView textViewPaymentMethod;
     private TextView textViewLocation;
@@ -108,6 +115,18 @@ public class CheckoutDialogFragment extends DialogFragment
         buttonPlaceOrder.setOnClickListener(placeOrderAction);
     }
 
+    @SuppressWarnings("ConstantConditions")
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 1 && resultCode == AppCompatActivity.RESULT_OK) {
+            String locationJson = getActivity().getIntent().getStringExtra("LOCATION_JSON");
+            String name = getActivity().getIntent().getStringExtra("ITEM");
+
+            location = new Gson().fromJson(locationJson, Location.class);
+            textViewLocation.setText(name);
+        }
+    }
+
     @Override
     public void onPaymentMethodSelected(int index, BankCard card) {
         String text;
@@ -124,8 +143,14 @@ public class CheckoutDialogFragment extends DialogFragment
 
     @Override
     public void onLocationSelected(int index, Location location) {
-        this.location = location;
         textViewLocation.setText(location.getLocationName());
+
+        if(index == 0) {
+            Intent intent = new Intent(getActivity(), AddLocationActivity.class);
+            startActivityForResult(intent, 1);
+        } else {
+            this.location = location;
+        }
     }
 
     private View.OnClickListener editPaymentMethodAction = new View.OnClickListener() {

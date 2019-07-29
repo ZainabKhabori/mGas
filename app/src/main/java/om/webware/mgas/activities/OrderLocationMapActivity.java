@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.CompoundButton;
+import android.widget.ToggleButton;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -18,9 +20,10 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+
 import io.socket.client.Socket;
 import om.webware.mgas.R;
-import om.webware.mgas.server.MGasSocket;
 import om.webware.mgas.tools.GPSTracker;
 import om.webware.mgas.tools.RouteMapper;
 import permissions.dispatcher.NeedsPermission;
@@ -29,10 +32,16 @@ import permissions.dispatcher.RuntimePermissions;
 @RuntimePermissions
 @SuppressWarnings("ConstantConditions")
 public class OrderLocationMapActivity extends AppCompatActivity implements OnMapReadyCallback,
-        GPSTracker.OnUserLocationChangedListener {
+        GPSTracker.OnUserLocationChangedListener, RouteMapper.RouteMappingCompleteListener,
+        GoogleMap.OnCameraMoveListener, CompoundButton.OnCheckedChangeListener {
 
     private GoogleMap map;
     private Marker driver;
+
+    private boolean firstSetup;
+
+    private boolean focus;
+    private float zoom;
 
     private Socket socket;
 
@@ -46,10 +55,11 @@ public class OrderLocationMapActivity extends AppCompatActivity implements OnMap
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-/*        socket = MGasSocket.socket;
-        socket.connect();
+        firstSetup = true;
+        focus = false;
 
-        socket.emit("clientOnline", getIntent().getStringExtra("driverId"));*/
+        ToggleButton toggleButtonFocus = findViewById(R.id.toggleButtonFocus);
+        toggleButtonFocus.setOnCheckedChangeListener(this);
     }
 
 
@@ -73,69 +83,60 @@ public class OrderLocationMapActivity extends AppCompatActivity implements OnMap
         map = googleMap;
         map.setMinZoomPreference(8);
         map.setMyLocationEnabled(true);
+        map.setOnCameraMoveListener(this);
+
+        zoom = 19;
 
         GPSTracker tracker = new GPSTracker(this);
         tracker.setOnUserLocationChangedListener(this);
-
-        if(tracker.canGetLocation()) {
-            LatLng latLng = new LatLng(tracker.getLastKnownLocation().getLatitude(),
-                    tracker.getLastKnownLocation().getLongitude());
-
-            driver = map.addMarker(new MarkerOptions().position(latLng));
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 19));
-
-            Location location = new Gson().fromJson(getIntent().getStringExtra("LOC"), Location.class);
-            LatLng dest = new LatLng(location.getLatitude(), location.getLongitude());
-
-            map.addMarker(new MarkerOptions().position(dest));
-
-            MarkerOptions options = new MarkerOptions();
-            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
-            map.addMarker(options.position(latLng));
-
-            RouteMapper mapper = new RouteMapper(this, map, latLng, dest);
-            mapper.mapRoutes();
-        }
     }
 
     @Override
     public void onUserLocationChanged(Location location) {
-/*        String driverId = getIntent().getStringExtra("driverId");
-        double lat = location.getLatitude();
-        double lng = location.getLongitude();
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-        if(driverId.equals("driver 2")) {
-            if(x == 0) {
-                lat = 23.582537;
-                lng = 58.427095;
+        if(firstSetup) {
+            firstSetup = false;
 
-                x = 1;
-            } else {
-                lat = 23.582547;
-                lng = 58.427085;
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
-                x = 0;
-            }
+            String locationJson = getIntent().getStringExtra("LOC");
+            om.webware.mgas.api.Location loc = new Gson().fromJson(locationJson, om.webware.mgas.api.Location.class);
+            LatLng dest = new LatLng(loc.getLatitude(), loc.getLongitude());
 
-            Log.v("X_VALUE", x + "");
+            MarkerOptions options = new MarkerOptions();
+            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+            map.addMarker(options.position(dest));
+
+            RouteMapper mapper = new RouteMapper(this, map, latLng, dest);
+            mapper.mapRoutes();
         }
-
-        map.clear();
-
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        map.addMarker(new MarkerOptions().position(latLng));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 19));
-
-        socket.emit("driverLocationChanged", driverId, lat, lng);*/
-
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
         if(driver != null) {
             driver.remove();
         }
 
         driver = map.addMarker(new MarkerOptions().position(latLng));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 19));
+
+        if(focus) {
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+        }
+    }
+
+    // Five minutes away points
+    @Override
+    public void onRouteMappingComplete(ArrayList<LatLng> points) {
+
+    }
+
+    @Override
+    public void onCameraMove() {
+        zoom = map.getCameraPosition().zoom;
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        focus = isChecked;
     }
 
     @Override

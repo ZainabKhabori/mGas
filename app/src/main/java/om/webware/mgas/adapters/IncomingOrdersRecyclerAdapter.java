@@ -42,7 +42,11 @@ public class IncomingOrdersRecyclerAdapter extends RecyclerView.Adapter<Incoming
 
     private boolean rtl;
 
-    public interface OnItemClickListener { void onItemClick(View view, int index); }
+    public interface OnItemClickListener {
+        void onItemClick(View view, int index);
+        void onAcceptButtonClick(View view, int index);
+        void onLocationButtonClick(View view, int index);
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -116,7 +120,15 @@ public class IncomingOrdersRecyclerAdapter extends RecyclerView.Adapter<Incoming
         @Override
         public void onClick(View v) {
             if(onItemClickListener != null) {
-                onItemClickListener.onItemClick(v, getAdapterPosition());
+                int position = getAdapterPosition();
+
+                if(v.getId() == imageButtonAccept.getId()) {
+                    onItemClickListener.onAcceptButtonClick(v, position);
+                } else if(v.getId() == imageButtonLocation.getId()) {
+                    onItemClickListener.onLocationButtonClick(v, position);
+                } else {
+                    onItemClickListener.onItemClick(v, position);
+                }
             }
         }
     }
@@ -220,12 +232,14 @@ public class IncomingOrdersRecyclerAdapter extends RecyclerView.Adapter<Incoming
         }
 
         long milliseconds = hours * 3600000;
+        long deliveryTime = order.getOrderDate().getTime() + milliseconds;
+        long time = deliveryTime - new Date().getTime();
 
         if(viewHolder.getTimer() != null) {
             viewHolder.getTimer().cancel();
         }
 
-        CountDownTimer timer = new CountDownTimer(milliseconds, 1000) {
+        CountDownTimer timer = new CountDownTimer(time, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 long seconds = millisUntilFinished / 1000;
