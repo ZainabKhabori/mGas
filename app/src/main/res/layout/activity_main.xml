@@ -20,19 +20,19 @@
         android:layout_marginBottom="40dp"
         mGas:srcCompat="@drawable/logo" />
 
-<!--    <ProgressBar
+    <ProgressBar
         android:id="@+id/progressBarLoading"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:indeterminateTint="@color/colorAccent"/>-->
+        android:indeterminateTint="@color/colorAccent"/>
 
-    <com.airbnb.lottie.LottieAnimationView
+<!--    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
         mGas:lottie_rawRes="@raw/animated_leaf"
         mGas:lottie_loop="true"
-        mGas:lottie_autoPlay="true" />
+        mGas:lottie_autoPlay="true" />-->
 </LinearLayout>
