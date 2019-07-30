@@ -70,14 +70,14 @@ public class DriverDrawerBaseActivity extends AppCompatActivity implements Navig
 
         if(user.getDisplayPicThumb() != null && user.getDisplayPicUrl() != null) {
             if(Server.getNetworkAvailability(this)) {
+                Picasso.get().load(user.getDisplayPicUrl()).into(imageViewDp);
+            } else {
                 byte[] thumb = user.getDisplayPicThumb();
                 Bitmap bitmap = BitmapFactory.decodeByteArray(thumb, 0, thumb.length);
                 int width = imageViewDp.getWidth();
                 int height = imageViewDp.getHeight();
                 Bitmap scaled = Bitmap.createScaledBitmap(bitmap, width, height, false);
                 imageViewDp.setImageBitmap(scaled);
-            } else {
-                Picasso.get().load(user.getDisplayPicUrl()).into(imageViewDp);
             }
         }
     }

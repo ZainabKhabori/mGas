@@ -74,17 +74,6 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-
-
-
-
-
-
-
-
-
-
         AndroidLoggingHandler.reset(new AndroidLoggingHandler());
         java.util.logging.Logger.getLogger(Socket.class.getName()).setLevel(Level.FINEST);
         java.util.logging.Logger.getLogger(io.socket.engineio.client.Socket.class.getName()).setLevel(Level.FINEST);
@@ -158,9 +147,6 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher {
         waitDialogFragment = WaitDialogFragment.createDialog();
         waitDialogFragment.setCancelable(false);
         waitDialogFragment.show(getSupportFragmentManager(), "WAIT_DIALOG");
-
-        Log.v("SPLASH_SOCKET", socket.connected() + "");
-
         socket.emit("login", mobile, pass);
     }
 
@@ -292,8 +278,6 @@ public class LoginActivity extends AppCompatActivity implements TextWatcher {
                         ErrorDialogFragment errorDialogFragment = ErrorDialogFragment.creteDialog(response.getMsg());
                         errorDialogFragment.show(getSupportFragmentManager(), "OTP_VERIFICATION_ERROR_DIALOG");
                     }
-
-                    Log.v("SPLASH_OTP", response.getArabicMsg());
                 }
             });
         }

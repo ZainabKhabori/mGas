@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.ConsumerProfileActivity"></activity>
+        <activity android:name=".activities.ConsumerProfileActivity"/>
         <activity android:name=".activities.DriverOrdersActivity" />
         <activity android:name=".activities.DriverSettingsActivity" />
         <activity android:name=".activities.SettingsActivity" />

@@ -27,11 +27,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="10dp"
+        android:background="@drawable/round_edged_background"
+        android:padding="10dp"
         android:textDirection="locale"
         android:textSize="28sp"
         android:textColor="@color/textColorPrimary"
-        android:textStyle="bold"
-        android:text="TextView" />
+        android:textStyle="bold" />
 
     <ScrollView
         android:id="@+id/scrollViewDetails"
@@ -69,11 +70,12 @@
                 android:layout_marginStart="10dp"
                 android:ems="10"
                 android:padding="10dp"
+                android:enabled="false"
                 android:inputType="textEmailAddress"
                 android:background="@drawable/round_edged_background"
                 android:textDirection="locale"
                 android:textSize="18sp"
-                android:textColor="@color/textColorPrimary"/>
+                android:textColor="@color/textColorPrimary" />
 
             <ImageView
                 android:id="@+id/imageViewPhone"
@@ -97,6 +99,7 @@
                 android:layout_marginStart="10dp"
                 android:ems="10"
                 android:padding="10dp"
+                android:enabled="false"
                 android:inputType="phone"
                 android:background="@drawable/round_edged_background"
                 android:textDirection="locale"
@@ -104,11 +107,34 @@
                 android:textColor="@color/textColorPrimary"/>
 
             <ImageView
+                android:id="@+id/imageViewIdNo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintTop_toBottomOf="@id/imageViewPhone"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="30dp"
+                app:srcCompat="@drawable/ic_id"
+                android:tint="@color/colorAccent"/>
+
+            <TextView
+                android:id="@+id/textViewIdNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/imageViewIdNo"
+                app:layout_constraintTop_toBottomOf="@id/editTextPhone"
+                app:layout_constraintBottom_toBottomOf="@id/imageViewIdNo"
+                app:layout_constraintStart_toEndOf="@id/imageViewIdNo"
+                android:layout_marginStart="20dp"
+                android:textDirection="locale"
+                android:textSize="18sp"
+                android:textColor="@color/textColorPrimary" />
+
+            <ImageView
                 android:id="@+id/imageViewBirthday"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 app:layout_constraintTop_toTopOf="@id/editTextBirthday"
-                app:layout_constraintTop_toBottomOf="@id/imageViewPhone"
+                app:layout_constraintTop_toBottomOf="@id/imageViewIdNo"
                 app:layout_constraintBottom_toBottomOf="@id/editTextBirthday"
                 app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@drawable/ic_birthday"
@@ -118,13 +144,14 @@
                 android:id="@+id/editTextBirthday"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/editTextPhone"
+                app:layout_constraintTop_toBottomOf="@id/textViewIdNo"
                 app:layout_constraintStart_toEndOf="@id/imageViewBirthday"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="30dp"
                 android:layout_marginStart="10dp"
                 android:ems="10"
                 android:padding="10dp"
+                android:enabled="false"
                 android:inputType="date"
                 android:background="@drawable/round_edged_background"
                 android:textDirection="locale"
@@ -149,16 +176,78 @@
                 app:layout_constraintTop_toBottomOf="@id/editTextBirthday"
                 app:layout_constraintBottom_toBottomOf="@id/imageViewAge"
                 app:layout_constraintStart_toEndOf="@id/imageViewAge"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
                 android:textDirection="locale"
                 android:textSize="18sp"
                 android:textColor="@color/textColorPrimary" />
 
             <ImageView
-                android:id="@+id/imageViewLocation"
+                android:id="@+id/imageViewGender"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 app:layout_constraintTop_toBottomOf="@id/imageViewAge"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="30dp"
+                app:srcCompat="@drawable/ic_gender"
+                android:tint="@color/colorAccent"/>
+
+            <ImageView
+                android:id="@+id/imageViewSelectedGender"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintTop_toTopOf="@id/imageViewGender"
+                app:layout_constraintTop_toBottomOf="@id/textViewAge"
+                app:layout_constraintBottom_toBottomOf="@id/imageViewGender"
+                app:layout_constraintStart_toEndOf="@id/imageViewGender"
+                android:layout_marginStart="20dp"
+                android:tint="@color/textColorPrimary"/>
+
+            <RadioGroup
+                android:id="@+id/radioGroupGender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/imageViewGender"
+                app:layout_constraintTop_toBottomOf="@id/textViewAge"
+                app:layout_constraintBottom_toBottomOf="@id/imageViewGender"
+                app:layout_constraintStart_toEndOf="@id/imageViewGender"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <RadioButton
+                    android:id="@+id/radioButtonMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_male_text_primary"
+                    android:buttonTint="@color/textColorPrimary"/>
+
+                <RadioButton
+                    android:id="@+id/radioButtonFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_female_text_primary"
+                    android:buttonTint="@color/textColorPrimary"/>
+
+                <RadioButton
+                    android:id="@+id/radioButtonUnspecified"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:drawableStart="@drawable/ic_gender_unspecified"
+                    android:buttonTint="@color/textColorPrimary"/>
+            </RadioGroup>
+
+            <ImageView
+                android:id="@+id/imageViewLocation"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintTop_toBottomOf="@id/imageViewGender"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="30dp"
                 app:srcCompat="@drawable/ic_location"
@@ -172,7 +261,7 @@
                 app:layout_constraintTop_toBottomOf="@id/editTextBirthday"
                 app:layout_constraintBottom_toBottomOf="@id/imageViewLocation"
                 app:layout_constraintStart_toEndOf="@id/imageViewLocation"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
                 android:textDirection="locale"
                 android:textSize="18sp"
                 android:textColor="@color/colorAccent"
@@ -186,10 +275,52 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="15dp"
+                android:padding="10dp"
+                android:background="@drawable/round_edged_background"
                 android:textDirection="locale"
                 android:textSize="18sp"
-                android:textColor="@color/textColorPrimary"
-                android:text="TextView" />
+                android:textColor="@color/textColorPrimary" />
+
+            <ImageView
+                android:id="@+id/imageViewLocationName"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintTop_toBottomOf="@id/textViewLocation"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="30dp"
+                app:srcCompat="@drawable/ic_location_name"
+                android:tint="@color/colorAccent"/>
+
+            <TextView
+                android:id="@+id/textViewLocationName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/imageViewLocationName"
+                app:layout_constraintTop_toBottomOf="@id/textViewLocation"
+                app:layout_constraintBottom_toBottomOf="@id/imageViewLocationName"
+                app:layout_constraintStart_toEndOf="@id/imageViewLocationName"
+                android:layout_marginStart="20dp"
+                android:textDirection="locale"
+                android:textSize="18sp"
+                android:textColor="@color/colorAccent"
+                android:text="@string/main_location_s_name" />
+
+            <EditText
+                android:id="@+id/editTextLocationName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/imageViewLocationName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="15dp"
+                android:ems="10"
+                android:padding="10dp"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                android:background="@drawable/round_edged_background"
+                android:textDirection="locale"
+                android:textSize="18sp"
+                android:textColor="@color/textColorPrimary" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 
@@ -203,7 +334,7 @@
         app:srcCompat="@drawable/logo" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/floatingActionButtonEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/scrollViewDetails"
@@ -212,6 +343,34 @@
         android:focusable="true"
         android:backgroundTint="@color/colorAccent"
         app:srcCompat="@drawable/ic_edit"
-        android:tint="@color/colorPrimary"/>
+        android:tint="@color/colorPrimary"
+        android:onClick="editAction"/>
 
+    <ImageButton
+        android:id="@+id/imageButtonConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/imageViewLogo"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewLogo"
+        app:layout_constraintStart_toStartOf="@id/imageViewLogo"
+        android:layout_marginEnd="5dp"
+        android:padding="10dp"
+        android:background="@drawable/states_button_accent"
+        app:srcCompat="@drawable/ic_tick"
+        android:visibility="gone"
+        android:onClick="confirmAction"/>
+
+    <ImageButton
+        android:id="@+id/imageButtonCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/imageViewLogo"
+        app:layout_constraintBottom_toBottomOf="@id/imageViewLogo"
+        app:layout_constraintEnd_toEndOf="@id/imageViewLogo"
+        android:layout_marginStart="5dp"
+        android:padding="10dp"
+        android:background="@drawable/states_button_accent"
+        app:srcCompat="@drawable/ic_cancel"
+        android:visibility="gone"
+        android:onClick="cancelAction"/>
 </android.support.constraint.ConstraintLayout>

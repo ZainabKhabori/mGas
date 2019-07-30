@@ -126,14 +126,14 @@ public class ConsumerDrawerBaseActivity extends AppCompatActivity
 
         if(user.getDisplayPicThumb() != null && user.getDisplayPicUrl() != null) {
             if(Server.getNetworkAvailability(this)) {
+                Picasso.get().load(user.getDisplayPicUrl()).into(imageViewDp);
+            } else {
                 byte[] thumb = user.getDisplayPicThumb();
                 Bitmap bitmap = BitmapFactory.decodeByteArray(thumb, 0, thumb.length);
                 int width = imageViewDp.getWidth();
                 int height = imageViewDp.getHeight();
                 Bitmap scaled = Bitmap.createScaledBitmap(bitmap, width, height, false);
                 imageViewDp.setImageBitmap(scaled);
-            } else {
-                Picasso.get().load(user.getDisplayPicUrl()).into(imageViewDp);
             }
         }
 
@@ -176,8 +176,9 @@ public class ConsumerDrawerBaseActivity extends AppCompatActivity
             intent = new Intent(this, ConsumerMainActivity.class);
             startActivity(intent);
             finish();
-        } else if (id == R.id.navItemProfile) {
-
+        } else if (id == R.id.navItemProfile && !(this instanceof ConsumerProfileActivity)) {
+            intent = new Intent(this, ConsumerProfileActivity.class);
+            startActivity(intent);
         } else if (id == R.id.navItemOrders && !(this instanceof OrdersActivity)) {
             intent = new Intent(this, OrdersActivity.class);
             startActivity(intent);

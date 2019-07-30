@@ -134,4 +134,5 @@
     <string name="status">Status:</string>
     <string name="home">Home</string>
     <string name="main_location">Main location:</string>
+    <string name="main_location_s_name">Main location\'s name:</string>
 </resources>
