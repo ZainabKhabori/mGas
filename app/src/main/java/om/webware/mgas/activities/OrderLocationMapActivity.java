@@ -4,9 +4,9 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 

@@ -3,10 +3,9 @@ package om.webware.mgas.adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.CountDownTimer;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +15,12 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
 import om.webware.mgas.R;
 import om.webware.mgas.api.Location;
-import om.webware.mgas.api.Locations;
 import om.webware.mgas.api.Order;
 import om.webware.mgas.api.OrderService;
 import om.webware.mgas.api.Service;

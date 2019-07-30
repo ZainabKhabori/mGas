@@ -3,11 +3,10 @@ package om.webware.mgas.activities;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -126,6 +125,12 @@ public class ConsumerProfileActivity extends ConsumerDrawerBaseActivity {
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        cancelProfileUpdate();
+    }
+
     public void editAction(View view) {
         ArrayList<TextView> textViews = new ArrayList<>();
         textViews.add(textViewName);
@@ -153,6 +158,10 @@ public class ConsumerProfileActivity extends ConsumerDrawerBaseActivity {
     }
 
     public void cancelAction(View view) {
+        cancelProfileUpdate();
+    }
+
+    private void cancelProfileUpdate() {
         ArrayList<TextView> textViews = new ArrayList<>();
         textViews.add(textViewName);
         textViews.add(editTextEmail);

@@ -1,14 +1,9 @@
 package om.webware.mgas.activities;
 
-import android.animation.ObjectAnimator;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import om.webware.mgas.R;

@@ -1,8 +1,8 @@
 package om.webware.mgas.activities;
 
 import android.content.Intent;
-import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.textfield.TextInputEditText;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,7 +19,6 @@ import com.google.gson.JsonObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -28,8 +27,6 @@ import io.socket.client.Manager;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 import io.socket.engineio.client.EngineIOException;
-import io.socket.engineio.client.Transport;
-import io.socket.engineio.client.transports.WebSocket;
 import om.webware.mgas.R;
 import om.webware.mgas.api.BankCard;
 import om.webware.mgas.api.BankCards;

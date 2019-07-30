@@ -1,10 +1,10 @@
 package om.webware.mgas.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -28,7 +28,6 @@ import om.webware.mgas.api.Feedbacks;
 import om.webware.mgas.api.Order;
 import om.webware.mgas.api.OrderService;
 import om.webware.mgas.api.OrderServices;
-import om.webware.mgas.api.Orders;
 import om.webware.mgas.api.Services;
 import om.webware.mgas.fragments.dialogs.CheckoutDialogFragment;
 import om.webware.mgas.fragments.dialogs.ErrorDialogFragment;

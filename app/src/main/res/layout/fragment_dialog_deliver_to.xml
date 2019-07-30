@@ -17,7 +17,7 @@
         android:textColor="@color/textColorPrimary"
         android:text="@string/deliver_to" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewLocations"
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -6,8 +6,8 @@ import android.content.res.ColorStateList;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
+
+import androidx.core.content.ContextCompat;
 import android.text.InputFilter;
 import android.util.AttributeSet;
 import android.view.ActionMode;
@@ -18,7 +18,7 @@ import android.view.View;
 import om.webware.mgas.R;
 
 @SuppressWarnings("ConstantConditions")
-public class PinEntryEditText extends android.support.v7.widget.AppCompatEditText implements View.OnClickListener,
+public class PinEntryEditText extends androidx.appcompat.widget.AppCompatEditText implements View.OnClickListener,
         ActionMode.Callback {
 
     private float spaceSize;  // Tied to spaceSize custom attribute, default value 24

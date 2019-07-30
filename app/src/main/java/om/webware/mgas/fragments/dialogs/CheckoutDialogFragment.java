@@ -3,19 +3,18 @@ package om.webware.mgas.fragments.dialogs;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -28,7 +27,6 @@ import om.webware.mgas.api.BankCard;
 import om.webware.mgas.api.Location;
 import om.webware.mgas.api.Locations;
 import om.webware.mgas.api.Order;
-import om.webware.mgas.api.User;
 import om.webware.mgas.server.MGasSocket;
 import om.webware.mgas.tools.DatabaseHelper;
 

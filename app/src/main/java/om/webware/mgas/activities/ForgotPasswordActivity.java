@@ -1,9 +1,9 @@
 package om.webware.mgas.activities;
 
 import android.content.Intent;
-import android.support.design.widget.TextInputEditText;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.textfield.TextInputEditText;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;

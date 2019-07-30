@@ -60,7 +60,7 @@
             android:text="@string/order_gas"
             android:onClick="expandOrdersLayoutAction"/>
 
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPagerMakeOrder"
             android:layout_width="match_parent"
             android:visibility="gone"

@@ -19,7 +19,7 @@
         android:visibility="gone"
         android:text="@string/no_currently_active_lotteries" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewLotteries"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

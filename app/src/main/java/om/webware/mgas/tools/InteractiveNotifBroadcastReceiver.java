@@ -5,8 +5,8 @@ import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
@@ -17,7 +17,6 @@ import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 import om.webware.mgas.R;

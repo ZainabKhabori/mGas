@@ -19,7 +19,7 @@
         android:layout_marginBottom="40dp"
         app:srcCompat="@drawable/logo" />
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutMobile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         android:focusableInTouchMode="true"
         android:padding="10dp">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextMobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,9 +44,9 @@
             android:inputType="phone"
             android:text="95746197"
             android:textSize="18sp" />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
         android:padding="10dp"
         app:passwordToggleEnabled="true">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="25dp"
@@ -72,7 +72,7 @@
             android:inputType="textPassword"
             android:text="driver pass"
             android:textSize="18sp" />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/textViewForgotPassword"
