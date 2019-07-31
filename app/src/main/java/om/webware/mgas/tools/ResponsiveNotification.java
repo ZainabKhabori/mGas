@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -31,6 +30,8 @@ public class ResponsiveNotification {
     private NotificationManager manager;
     private RemoteViews remoteViews;
 
+    private int id;
+
     public ResponsiveNotification(InteractiveNotification notification, Context context) {
         this.notification = notification;
         this.context = context;
@@ -40,8 +41,6 @@ public class ResponsiveNotification {
     }
 
     public void createNotification() {
-
-
         if(notification.getImage() != null) {
             remoteViews.setImageViewUri(R.id.imageViewImage, Uri.parse(notification.getImage()));
         } else {
@@ -82,12 +81,17 @@ public class ResponsiveNotification {
             x++;
         }
 
-        int id = (int)System.currentTimeMillis();
+        id = (int)System.currentTimeMillis();
         Intent submitAction = new Intent("SUBMIT_ACTION");
         submitAction.putExtra("NOTIFICATION_ID", id);
         submitAction.putExtra("NOTIFICATION", new Gson().toJson(notification));
 
         PendingIntent pendingSubmitAction = PendingIntent.getBroadcast(context, 1, submitAction, 0);
         remoteViews.setOnClickPendingIntent(R.id.buttonSubmit, pendingSubmitAction);
+    }
+
+    public void showNotification(NotificationCompat.Builder builder) {
+        builder.setCustomBigContentView(remoteViews);
+        manager.notify(id, builder.build());
     }
 }
