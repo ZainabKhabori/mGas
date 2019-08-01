@@ -5,19 +5,29 @@
     tools:ignore="contentDescription"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/textColorPrimary"
+    android:padding="15dp"
     tools:context=".activities.RequestQueueActivity">
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/textViewQueue"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_location"
-        android:tint="@color/colorAccent"
-        android:stateListAnimator="@animator/button_animator"
-        android:background="@drawable/ripple_transparent_accent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="10dp"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="18sp"
+        android:text="@string/queue"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewRequestQueue"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/textViewQueue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round_edged_background"
+        android:backgroundTint="@color/textColorPrimary"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

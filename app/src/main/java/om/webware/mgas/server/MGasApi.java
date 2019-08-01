@@ -2,8 +2,8 @@ package om.webware.mgas.server;
 
 public class MGasApi {
 
-//    static String HOST = "https://01fd4f8c.ngrok.io";
-    static String HOST = "https://mgas006-mgas-ws.webware.om:1995";
+    static String HOST = "https://b3511dae.ngrok.io";
+//    static String HOST = "https://mgas006-mgas-ws.webware.om:1995";
 
     public static String IISNODE_ERROR = "<p>iisnode encountered an error when processing the request.</p>";
 

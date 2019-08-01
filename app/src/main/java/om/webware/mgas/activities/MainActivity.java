@@ -77,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
                         ErrorDialogFragment fragment = ErrorDialogFragment.creteDialog(err);
                         fragment.show(getSupportFragmentManager(), "SERVER_CONNECTION_ERROR_DIALOG");
 
-/*                        Log.v("SPLASH_ERR_TOKEN", "" + error.networkResponse.statusCode);
+                        Log.v("SPLASH_ERR_TOKEN", "" + error.networkResponse.statusCode);
                         Log.v("SPLASH_ERR_TOKEN", "" + new String(error.networkResponse.data,
-                                StandardCharsets.UTF_8));*/
+                                StandardCharsets.UTF_8));
                     }
                 });
     }

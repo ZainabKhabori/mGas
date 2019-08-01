@@ -135,4 +135,6 @@
     <string name="home">Home</string>
     <string name="main_location">Main location:</string>
     <string name="main_location_s_name">Main location\'s name:</string>
+    <string name="full_request_queue">Your request queue is full</string>
+    <string name="queue">Queue</string>
 </resources>

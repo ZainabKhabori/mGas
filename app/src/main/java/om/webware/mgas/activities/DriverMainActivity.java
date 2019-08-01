@@ -46,10 +46,8 @@ public class DriverMainActivity extends DriverDrawerBaseActivity implements Navi
 
     private Socket socket;
 
-    private DatabaseHelper helper;
     private User user;
 
-    private RecyclerView recyclerViewIncomingOrders;
     private IncomingOrdersRecyclerAdapter adapter;
     private ArrayList<Order> orders;
     private ArrayList<User> users;
@@ -57,7 +55,8 @@ public class DriverMainActivity extends DriverDrawerBaseActivity implements Navi
 
     private ProgressBar progressBarWait;
 
-    @SuppressWarnings("ConstantConditions")
+    private ArrayList<String> requestQueue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,19 +70,13 @@ public class DriverMainActivity extends DriverDrawerBaseActivity implements Navi
 
         DriverMainActivityPermissionsDispatcher.setupGPSWithPermissionCheck(this);
 
-        helper = new DatabaseHelper(this);
-        user = (User)helper.select(DatabaseHelper.Tables.USERS, null);
+        DatabaseHelper helper = new DatabaseHelper(this);
+        user = (User) helper.select(DatabaseHelper.Tables.USERS, null);
 
-        recyclerViewIncomingOrders = findViewById(R.id.recyclerViewIncomingOrders);
+        RecyclerView recyclerViewIncomingOrders = findViewById(R.id.recyclerViewIncomingOrders);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         DividerItemDecoration decoration = new DividerItemDecoration(recyclerViewIncomingOrders.getContext(),
                 manager.getOrientation());
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.clear();
-        editor.apply();
 
         String ordersJson = (String)SavedObjects.getSavedObjects().get("ORDERS");
         String usersJson = (String)SavedObjects.getSavedObjects().get("USERS");
@@ -109,6 +102,8 @@ public class DriverMainActivity extends DriverDrawerBaseActivity implements Navi
         recyclerViewIncomingOrders.setLayoutManager(manager);
         recyclerViewIncomingOrders.addItemDecoration(decoration);
         recyclerViewIncomingOrders.setAdapter(adapter);
+
+        requestQueue = new ArrayList<>();
     }
 
     @Override
@@ -158,7 +153,21 @@ public class DriverMainActivity extends DriverDrawerBaseActivity implements Navi
 
     @Override
     public void onAcceptButtonClick(View view, int index) {
+        if(requestQueue.size() <= 3) {
+            JsonObject object = new JsonObject();
+            object.addProperty("order", new Gson().toJson(orders.get(index)));
+            object.addProperty("user", new Gson().toJson(users.get(index)));
+            object.addProperty("location", new Gson().toJson(locations.get(index)));
 
+            requestQueue.add(object.toString());
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("REQUEST_QUEUE", new Gson().toJson(requestQueue));
+            editor.apply();
+        } else {
+            Toast.makeText(this, getString(R.string.full_request_queue), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
